@@ -59,7 +59,9 @@ if (setVideo(runas)==-1){printf("set video mode KO!");exit(2);}
 
 //load images in surfaces and sounds
 load_img();
+
 load_sound();
+
 if (soundOn==1){Mix_PlayMusic(music,-1);} //play music
 
 //init first level => change it TODO
@@ -126,11 +128,11 @@ while(goout!=QUITGAME) {
 						{
 						if (event.key.keysym.sym == SDLK_q && play==GAMEOFF){goout = QUITGAME;} //quit game
 						if (event.key.keysym.sym == SDLK_ESCAPE && play==GAMEON){play = GAMEOFF; if (soundOn==1){Mix_ResumeMusic();};level=1;} //stop playing
-						if (event.key.keysym.sym == SDLK_F1 && play==GAMEOFF){initLevel(level);play = GAMEON; if (soundOn==1){Mix_PauseMusic();}} //playing
+						if (event.key.keysym.sym == SDLK_F1 && play==GAMEOFF){life=3;initLevel(level);play = GAMEON; if (soundOn==1){Mix_PauseMusic();}} //playing
 						if (event.key.keysym.sym==SDLK_LEFT && play==GAMEON){posFireGun--; if (posFireGun<0) posFireGun=0;}
 						if (event.key.keysym.sym==SDLK_RIGHT && play==GAMEON){posFireGun++; if (posFireGun>39) posFireGun=39;}
 						if (event.key.keysym.sym==SDLK_SPACE && play==GAMEON){SDL_EnableKeyRepeat(150,100);fire(posFireGun);SDL_EnableKeyRepeat(10,5);} //fire in game
-						if (event.key.keysym.sym==SDLK_RETURN && play==GAMEOFF && menusel==MNPLAY) {initLevel(level);play=GAMEON; if (soundOn==1){Mix_PauseMusic();}} //playing
+						if (event.key.keysym.sym==SDLK_RETURN && play==GAMEOFF && menusel==MNPLAY) {life=3;initLevel(level);play=GAMEON; if (soundOn==1){Mix_PauseMusic();}} //playing
 						if (event.key.keysym.sym==SDLK_BACKSPACE && play==GAMESCORE && menusel==MNSCORE) {play=GAMEOFF;} //playing
 						//if (event.key.keysym.sym==SDLK_BACKSPACE && play==GAMESOUND && menusel==MNSOUND) {play=GAMEOFF;} //playing
 						if (event.key.keysym.sym==SDLK_RETURN && play==GAMEOFF && menusel==MNSCORE) {;play=GAMESCORE;} //show Scores

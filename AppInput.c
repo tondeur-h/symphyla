@@ -33,7 +33,7 @@ SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
 void beginInput()
 {
 	//Open the font
-	font = TTF_OpenFont("/home/herve/workspace/symphyla/gfx/font.fnt", 42 );
+	font = TTF_OpenFont("/home/herve/workspace/symphyla/gfx/font.fnt", 40 );
 	if (font==NULL){printf("Erreur loading font...\n");exit(3);}
 
 
@@ -45,7 +45,8 @@ void beginInput()
 }
 
 
-void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
+
+void apply_surface( int x, int y, int h, int w, SDL_Surface* source, SDL_Surface* destination )
 {
     //Holds offsets
     SDL_Rect offset;
@@ -53,6 +54,8 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination 
     //Get offsets
     offset.x = x;
     offset.y = y;
+    offset.w=w;
+    offset.h=h;
 
     //Blit
     SDL_BlitSurface( source, NULL, destination, &offset );
@@ -68,6 +71,8 @@ void killInput()
     //Disable Unicode
     SDL_EnableUNICODE( SDL_DISABLE );
 }
+
+
 
 
 void handle_input()
@@ -115,18 +120,20 @@ void handle_input()
             	                str [idx+1]='\0';
             	                idx++;
             }
+
         }
 
         //If backspace was pressed and the string isn't blank
-        if( ( Localevent.key.keysym.sym == SDLK_BACKSPACE ) && ( strlen(str) != 0 ) )
+        if( ( Localevent.key.keysym.sym == SDLK_BACKSPACE ) && ( idx > 0 ) )
         {
             //Remove a character from the end
         	idx--;
             str[idx]='\0';
+
         }
 
         //If the string was changed
-        if( idx>0 )
+        if( idx>=0 )
         {
             //Free the old surface
             SDL_FreeSurface( text );
@@ -144,7 +151,7 @@ void show_centered()
     if( text != NULL )
     {
         //Show the name
-        apply_surface( ( 640 - text->w ) / 2, ( 480 - text->h ) / 2, text, screen );
+        apply_surface( ( 640 - text->w ) / 2, ( 480 - text->h ) / 2,text->w,text->h, text, screen );
     }
 }
 
@@ -165,6 +172,7 @@ char* enter_name(SDL_Surface* scrn, SDL_Surface* back){
     //The gets the user's name
     beginInput();
 
+    SDL_EnableKeyRepeat(0,0);
 
     //Set the message
     message = TTF_RenderText_Solid( font, "New High Score! Enter Name:", textColor );
@@ -190,8 +198,7 @@ char* enter_name(SDL_Surface* scrn, SDL_Surface* back){
                     //Free the old message surface
                     SDL_FreeSurface( message );
 
-                    //Change the message
-                    message = TTF_RenderText_Solid( font, "Rank: 1st", textColor );
+                    return str;
                 }
             }
 
@@ -199,22 +206,23 @@ char* enter_name(SDL_Surface* scrn, SDL_Surface* back){
         }
 
         //Apply the background
-        apply_surface( 0, 0, background, screen );
+        apply_surface( 0, 0,0,0, back, scrn );
+
 
         //Show the message
-        apply_surface( ( 640 - message->w ) / 2, ( ( 480 / 2 ) - message->h ) / 2, message, screen );
+        apply_surface( ( 640 - message->w ) / 2, ( 340 - message->h ) / 2, message->w,message->h,message, scrn );
 
         //Show the name on the screen
         show_centered();
 
         //Update the screen
-        if( SDL_Flip( screen ) == -1 )
-        {
-            return "-";
-        }
+        SDL_UpdateRect(scrn,0,0,0,0);
+
     }
 
     killInput();
+
+    SDL_EnableKeyRepeat(10,5);
 
     return str;
 }

@@ -21,6 +21,7 @@
 
 #include "AppImg.h"
 #include "global_var.h"
+#include "AppInput.h"
 
 //local déclarations
 const int RESOLUTION=16;
@@ -189,11 +190,24 @@ int manage_colisions(){
 				//colision with player si y==29 alors ok colision
 				if ((tabField[x][y].value==4) && y==SHEET29) {
 					life--;
-					if (life==0){if (soundOn==1){Mix_ResumeMusic();};level=1;draw_game_over();play = -1;return 0;}
+					if (life==0){
+						if (soundOn==1){Mix_ResumeMusic();}
+						level=1;
+						draw_game_over();
+						//ask name if in 10 best score
+						int bs=isBestScore(score);
+						if (bs>-1){
+						strcpy(tabScore[bs].name,enter_name(screen,imgBackScreen));
+						tabScore[bs].score=score;
+						save_bestScore();
+						pauseScreen(10);
+						}
+						play = -1;
+						return 0;
+					}
 					draw_hit();
 					initLevel(level);
 				}
-
 
 		}//for
 	}//for
@@ -205,6 +219,52 @@ int manage_colisions(){
 	if (leftWorm==0) {level++;initLevel(level);}
 
 	return out;
+}
+
+
+
+
+int isBestScore(long score){
+int pos;
+
+//inferieur a la postion 9
+if (score<=tabScore[9].score) return -1;
+
+
+for (pos=9;pos>=1;pos--){
+	//position exacte
+	if (score==tabScore[pos].score) {slide_bestScore(pos);return pos;}
+	//compris entre
+	if (score>tabScore[pos].score && score<tabScore[pos-1].score){slide_bestScore(pos);return pos;}
+}
+
+//superieur a 9
+if (score>tabScore[0].score) {slide_bestScore(0);return 0;}
+
+return -1;
+}
+
+
+void slide_bestScore(int pos){
+int num;
+	if (pos==9) return;
+	for (num=pos;num>=0;num--){
+		strcpy(tabScore[pos+1].name,tabScore[pos].name);
+		tabScore[pos+1].score=tabScore[pos].score;
+	}
+}
+
+
+void save_bestScore(){
+	int num=0;
+	FILE* f=fopen(get_file("/gfx/score.scr"),"w");
+			if (f){
+				for (num=0;num<10;num++){
+					fprintf(f,"%s\n",tabScore[num].name);
+					fprintf(f,"%ld\n",tabScore[num].score);
+				}
+			fclose(f);
+			}
 }
 
 
@@ -296,6 +356,7 @@ if (imgwormhr==NULL){printf("error loading wormhr...\n");exit(4);}
 
 //free unused surfaces
 SDL_FreeSurface(tempIN);
+
 }
 
 
@@ -441,6 +502,8 @@ void menu(int pos){
 	SDL_FreeSurface(scoreTxt);
 	SDL_FreeSurface(quitTxt);
 }
+
+
 
 
 /***********************
