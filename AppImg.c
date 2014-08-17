@@ -551,7 +551,7 @@ SDL_FreeSurface(OFFTxt);
 			switch (menuEvent.type)
 			{
 			case SDL_KEYDOWN:{
-				if (menuEvent.key.keysym.sym==SDLK_BACKSPACE) {quitLoop=QUITMENU;play=-1;} //playing
+				if (menuEvent.key.keysym.sym==SDLK_BACKSPACE) {if (soundOn==0){Mix_PauseMusic();} else {Mix_ResumeMusic();};quitLoop=QUITMENU;play=-1;} //playing
 				if (menuEvent.key.keysym.sym==SDLK_UP){pos=1;soundOn=1;} //move up menu
 				if (menuEvent.key.keysym.sym==SDLK_DOWN){pos=2;soundOn=0;} //move down menu
 							 }
