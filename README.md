@@ -1,7 +1,9 @@
-symphyla
-========
+symphyla 1.0
+============
 
 a clone game (limited) of the Atari Centipede under SDL 1.2 library
+Work under Linux, not trested with other OS.
+
 
 You need this libraries installed before compiling this game :
 ============================================================
