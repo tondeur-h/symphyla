@@ -27,9 +27,9 @@ After having compiled this game, create a directory "symphyla" for example and c
 
 You must have this structure directory above...
 
-So run ./symphyla for a windowed version of the game 
+So run "./symphyla" for a windowed version of the game 
 
-Or ./symphyla full for all full screen version game.
+Or "./symphyla full" for all full screen version game.
 
 
 Enjoy...
