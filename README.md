@@ -19,15 +19,16 @@ SDL_mixer 1.2
 
 SDL_gfx 1.2
 
-After having compiled this game, create a directory "symphyla" for example and copy your executable in it, so you must copy
-the entire "gfx" directory too in your game directory.
+After having compiled this game, create a directory "symphyla" for example and copy your executable in it, so you must copy the entire "gfx" directory too in your game directory.
 
 ../symphyla 
+
 ../symphyla/gfx
 
 You must have this structure directory above...
 
 So run ./symphyla for a windowed version of the game 
+
 Or ./symphyla full for all full screen version game.
 
 
