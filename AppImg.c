@@ -56,7 +56,7 @@ int value, direction;
  * fire a arrow
  ***************/
 void fire(int pos){
-	Mix_PlayChannel(-1,bow,0);
+	if (soundOn==1) {Mix_PlayChannel(-1,bow,0);};
 	tabField[pos][28].value=9;
 }
 
