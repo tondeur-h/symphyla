@@ -196,7 +196,7 @@ int manage_colisions(){
 						//ask name if in 10 best score
 						int bs=isBestScore(score);
 						if (bs>-1){
-						strcpy(tabScore[bs].name,enter_name(screen,imgBackScreen));
+						strcpy(tabScore[bs].name,enter_name(screen,imgBackScreen,score));
 						tabScore[bs].score=score;
 						save_bestScore();
 						pauseScreen(10);

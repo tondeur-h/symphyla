@@ -6,6 +6,7 @@
 
 //The surfaces
 SDL_Surface *message;
+SDL_Surface *msgscore;
 SDL_Surface *screen;
 SDL_Surface *background;
 
@@ -18,7 +19,7 @@ SDL_Event Localevent;
 
 //The color of the font
 SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
-
+SDL_Color scoreColor = { 0xFF, 0xFF, 0x00 };
 
     //The storage string
     char str[20];
@@ -26,6 +27,8 @@ SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
 
     //The text surface
     SDL_Surface *text;
+
+    char buffer[15];
 
 
 
@@ -151,12 +154,12 @@ void show_centered()
     if( text != NULL )
     {
         //Show the name
-        apply_surface( ( 640 - text->w ) / 2, ( 480 - text->h ) / 2,text->w,text->h, text, screen );
+        apply_surface( ( 640 - text->w ) / 2, ( 500 - text->h ) / 2,text->w,text->h, text, screen );
     }
 }
 
 
-char* enter_name(SDL_Surface* scrn, SDL_Surface* back){
+char* enter_name(SDL_Surface* scrn, SDL_Surface* back, long score){
 	screen=scrn;
 	background=back;
 
@@ -175,7 +178,9 @@ char* enter_name(SDL_Surface* scrn, SDL_Surface* back){
     SDL_EnableKeyRepeat(0,0);
 
     //Set the message
+    sprintf(buffer,"%ld",score);
     message = TTF_RenderText_Solid( font, "New High Score! Enter Name:", textColor );
+    msgscore = TTF_RenderText_Solid( font,buffer, scoreColor );
 
     //While the user hasn't quit
     while( quit == 0 )
@@ -211,6 +216,7 @@ char* enter_name(SDL_Surface* scrn, SDL_Surface* back){
 
         //Show the message
         apply_surface( ( 640 - message->w ) / 2, ( 340 - message->h ) / 2, message->w,message->h,message, scrn );
+        apply_surface( ( 640 - msgscore->w ) / 2, ( 400 - msgscore->h ) / 2, msgscore->w,msgscore->h,msgscore, scrn );
 
         //Show the name on the screen
         show_centered();

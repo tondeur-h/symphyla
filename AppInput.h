@@ -17,7 +17,7 @@
 
 #include <string.h>
 
-char* enter_name(SDL_Surface* scrn, SDL_Surface* back);
+char* enter_name(SDL_Surface* scrn, SDL_Surface* back, long score);
 
 
 #endif /* APPINPUT_H_ */
