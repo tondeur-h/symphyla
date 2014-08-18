@@ -254,6 +254,8 @@ int num;
 }
 
 
+
+
 void save_bestScore(){
 	int num=0;
 	FILE* f=fopen(get_file("/gfx/score.scr"),"w");
@@ -265,6 +267,8 @@ void save_bestScore(){
 			fclose(f);
 			}
 }
+
+
 
 
 void pauseScreen(long duration){
@@ -565,6 +569,9 @@ void draw_sound(){
 				SDL_Event menuEvent;
 const int QUITMENU=1;
 
+//recall current position
+		if (soundOn==1) {pos=1;} else {pos=2;}
+
 //menu loop
 while(quitLoop!=QUITMENU) {
 
@@ -579,6 +586,8 @@ while(quitLoop!=QUITMENU) {
 		SDL_BlitSurface(txtMessage, NULL, screen,&rm);
 
 		roundedBoxRGBA(screen,left-10,top-10,left+width+10,top+height+10,20,0,0,0,200);
+
+
 
 		if (pos==1){
 					soundoncolor.r=255;soundoncolor.g=255;soundoncolor.b=0;
