@@ -120,7 +120,6 @@ for (x=0;x<40;x++){
 
 		//peut bouger dans la direction indiqué...
 		if (value==4){
-			 //printf("%d~%d~%d#%d#%d#%d\n",x,y,tabField[x][y].value,tabField[x][y].direction,tabField[x+direction][y].value,tabField[x+direction][y].direction);
 
 			if (((x+direction)>=0) && ((x+direction)<40) && (tabField[x+direction][y].value<10) ){
 				tabFieldtmp[x+direction][y].value=value;
@@ -248,9 +247,9 @@ return -1;
 void slide_bestScore(int pos){
 int num;
 	if (pos==9) return;
-	for (num=pos;num>=0;num--){
-		strcpy(tabScore[pos+1].name,tabScore[pos].name);
-		tabScore[pos+1].score=tabScore[pos].score;
+	for (num=8;num<=pos;num--){
+		strcpy(tabScore[num+1].name,tabScore[num].name);
+		tabScore[num+1].score=tabScore[num].score;
 	}
 }
 
@@ -693,7 +692,7 @@ void draw_score_life(int level,int score,int lif){
 
 //compute extra life...
 int tmpLife=0;
-if (score>0) {tmpLife=score/10000;}
+if (score>0) {tmpLife=score/15000;}
 life=life+(tmpLife-extraLife);
 extraLife=tmpLife;
 
