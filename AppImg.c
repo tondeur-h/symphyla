@@ -237,7 +237,7 @@ for (pos=9;pos>=1;pos--){
 	if (score>tabScore[pos].score && score<tabScore[pos-1].score){slide_bestScore(pos);return pos;}
 }
 
-//superieur a 9
+//superieur a 0
 if (score>tabScore[0].score) {slide_bestScore(0);return 0;}
 
 return -1;
@@ -247,7 +247,7 @@ return -1;
 void slide_bestScore(int pos){
 int num;
 	if (pos==9) return;
-	for (num=8;num<=pos;num--){
+	for (num=8;num>=pos;num--){
 		strcpy(tabScore[num+1].name,tabScore[num].name);
 		tabScore[num+1].score=tabScore[num].score;
 	}
