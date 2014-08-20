@@ -306,7 +306,7 @@ imgBackScreen = SDL_DisplayFormat(tempIN);
 if (imgBackScreen==NULL){printf("error loading firstScreen...\n");exit(4);}
 
 //load grass & convert it to right format
-tempIN=IMG_Load("/home/herve/workspace/symphyla/gfx/grass.png");
+tempIN=IMG_Load(get_file("/gfx/grass.png"));
 imgGrass = SDL_DisplayFormat(tempIN);
 if (imgGrass==NULL){printf("error loading grass...\n");exit(4);}
 

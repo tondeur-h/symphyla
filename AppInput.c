@@ -1,5 +1,6 @@
 
 #include "AppInput.h"
+#include "AppInit.h"
 
 
 
@@ -36,7 +37,7 @@ SDL_Color scoreColor = { 0xFF, 0xFF, 0x00 };
 void beginInput()
 {
 	//Open the font
-	font = TTF_OpenFont("/home/herve/workspace/symphyla/gfx/font.fnt", 40 );
+	font = TTF_OpenFont(get_file("/gfx/font.fnt"), 40 );
 	if (font==NULL){printf("Erreur loading font...\n");exit(3);}
 
 

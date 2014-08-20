@@ -108,6 +108,7 @@ while(goout!=QUITGAME) {
 		//set frame rate
 		spent=SDL_GetTicks()-tick;
 		FRAMES_PER_SECOND=FRAMES_PER_SECOND_MIN+level*2;
+		if (spent>(1000/FRAMES_PER_SECOND)) {spent=(1000/FRAMES_PER_SECOND);}
 		SDL_Delay((1000/FRAMES_PER_SECOND)-spent);
 		//-----DEBUG-----
 		//printf("play %d \n",play);
